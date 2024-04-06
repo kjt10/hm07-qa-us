@@ -1,25 +1,24 @@
 // eslint-disable-next-line no-undef
 const config = require('../config');
 
-test('Return 200 OK status code', async () => {
+test('Should return 200 OK status code', async () => {
 	let actualStatusCode;
 	try {
-		const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
-		actualStatusCode = response.status
+		const response = await fetch(`${config.API_URL}/api/v1/kits/1`);
+		actualStatusCode = response.status;
 	} catch (error) {
 		console.error(error);
 	}
 	expect(actualStatusCode).toBe(200);
 });
 
-test('Return an array in the response body', async () => {
-	let responseBody;
+test('Should return kit name in response body', async () => {
+	let actualResponseBody;
 	try {
-		const response = await fetch(`${config.API_URL}/api/v1/warehouses`);
-		responseBody = await response.json()
+		const response = await fetch(`${config.API_URL}/api/v1/kits/1`);
+		actualResponseBody = await response.json();
 	} catch (error) {
 		console.error(error);
 	}
-	expect(typeof responseBody).toBe('object');
-	expect(responseBody.length).toBeGreaterThanOrEqual(1);
+	expect(actualResponseBody.name).toBe("For picnic");
 });
